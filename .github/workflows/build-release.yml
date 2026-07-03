@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ever-Dialer-Debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: Ever-Dialer/app/build/outputs/apk/debug/app-debug.apk
           
