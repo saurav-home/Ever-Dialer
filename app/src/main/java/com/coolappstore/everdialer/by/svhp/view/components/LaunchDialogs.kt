@@ -105,10 +105,12 @@ private fun DialogBanner(
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f))
                 )
-                // App icon
-                Image(
-                    painter = painterResource(R.mipmap.ic_launcher),
-                    contentDescription = null,
+                // App 
+        val context = androidx.compose.ui.platform.LocalContext.current
+        val drawable = androidx.core.content.ContextCompat.getDrawable(context, com.coolappstore.everdialer.by.svhp.R.mipmap.ic_launcher)
+        androidx.compose.foundation.Image(
+            painter = androidx.compose.ui.graphics.rememberAsyncImagePainter(drawable),
+            contentDescription = null,
                     modifier = Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(12.dp))
