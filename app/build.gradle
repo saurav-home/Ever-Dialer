@@ -34,17 +34,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            if (file("keystore.jks").exists()) {
-                signingConfig signingConfigs.release
-            } else {
-                signingConfig signingConfigs.debug
-            }
+            signingConfig signingConfigs.debug
             debuggable = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            // التصليح هنا: الـ Debug يستعمل المفتاح التلقائي (Default)
-            // هكا الـ GitHub Actions يجم يخرجلك APK حتى من غير Keystore
             signingConfig signingConfigs.debug
         }
     }
