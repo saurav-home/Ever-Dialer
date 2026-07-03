@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.coolappstore.everdialer.by.svhp.R
+import androidx.compose.ui.graphics.asImageBitmap
 
 // ─── Shared pop-in wrapper ────────────────────────────────────────────────────
 
@@ -137,7 +138,7 @@ private fun DialogBanner(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+            ) 
             Text(
                 subtitle,
                 style = MaterialTheme.typography.bodySmall,
