@@ -108,14 +108,29 @@ private fun DialogBanner(
                 // App 
         val context = androidx.compose.ui.platform.LocalContext.current
         val drawable = androidx.core.content.ContextCompat.getDrawable(context, com.coolappstore.everdialer.by.svhp.R.mipmap.ic_launcher)
-        androidx.compose.foundation.Image(
-            painter = androidx.compose.ui.graphics.rememberAsyncImagePainter(drawable),
-            contentDescription = null,
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(RoundedCornerShape(12.dp))
+        val bitmap = androidx.compose.runtime.remember(drawable) {
+            if (drawable is android.graphics.drawable.BitmapDrawable) {
+                drawable.bitmap.asImageBitmap()
+            } else {
+                val bmp = android.graphics.Bitmap.createBitmap(
+                    drawable?.intrinsicWidth?.coerceAtLeast(1) ?: 1,
+                    drawable?.intrinsicHeight?.coerceAtLeast(1) ?: 1,
+                    android.graphics.Bitmap.Config.ARGB_8888
                 )
+                val canvas = android.graphics.Canvas(bmp)
+                drawable?.setBounds(0, 0, canvas.width, canvas.height)
+                drawable?.draw(canvas)
+                bmp.asImageBitmap()
             }
+        }
+        
+        androidx.compose.foundation.Image(
+            bitmap = bitmap,
+            contentDescription = null,
+            modifier = Modifier
+                .size(48.dp)
+                .clip(RoundedCornerShape(12.dp))
+        )
             Spacer(Modifier.height(10.dp))
             Text(
                 title,
