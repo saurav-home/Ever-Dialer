@@ -304,7 +304,6 @@ private class DrawBackdropNode(
                 else IntOffset.Zero
             drawLayer(layer)
         }
-        }
     }
 
     override fun MeasureScope.measure(
