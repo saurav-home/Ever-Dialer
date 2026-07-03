@@ -247,6 +247,7 @@ private class DrawBackdropNode(
         }
 
     private var graphicsLayer: GraphicsLayer? = null
+    private var isRecordingLayer = false
 
     private val layoutLayerBlock: GraphicsLayerScope.() -> Unit = {
         clip = true
@@ -279,24 +280,30 @@ private class DrawBackdropNode(
         }
     }
 
-    private val drawBackdropLayer: DrawScope.() -> Unit = {
+        private val drawBackdropLayer: DrawScope.() -> Unit = {
         val layer = graphicsLayer
-        if (layer != null) {
+        if (layer != null && !isRecordingLayer) {
             val padding = padding
 
-            recordLayer(this@DrawBackdropNode,
-                layer,
-                size = IntSize(
-                    size.width.toInt() + padding.toInt() * 2,
-                    size.height.toInt() + padding.toInt() * 2
-                ),
-                block = recordBackdropBlock
-            )
+            try {
+                isRecordingLayer = true
+                recordLayer(this@DrawBackdropNode,
+                    layer,
+                    size = IntSize(
+                        size.width.toInt() + padding.toInt() * 2,
+                        size.height.toInt() + padding.toInt() * 2
+                    ),
+                    block = recordBackdropBlock
+                )
+            } finally {
+                isRecordingLayer = false
+            }
 
             layer.topLeft =
                 if (padding != 0f) IntOffset(-padding.toInt(), -padding.toInt())
                 else IntOffset.Zero
             drawLayer(layer)
+        }
         }
     }
 
